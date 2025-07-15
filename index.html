@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>SafeRoute - Chicago</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_GOOGLE_MAPS_API_KEY&libraries=places,geometry"></script>
+</head>
+<body>
+  <div class="container">
+    <h1>🚶‍♂️ SafeRoute</h1>
+    <p class="subtitle">Find the safest walking route in Chicago</p>
+    <div class="form-container">
+      <input type="text" id="start" placeholder="Start location (e.g. UIC)" />
+      <input type="text" id="end" placeholder="End location (e.g. Navy Pier)" />
+      <button onclick="getSafestRoute()">Find Route</button>
+    </div>
+    <div id="map" class="fade-in"></div>
+  </div>
+  <script src="app.js"></script>
+</body>
+</html>
