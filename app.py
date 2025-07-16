@@ -1,6 +1,7 @@
 from flask import Flask, render_template
 import pandas as pd
 from sodapy import Socrata
+import sqlite3
 from parse_incident import parse_incident_data
 
 app = Flask(__name__)
@@ -8,7 +9,7 @@ app = Flask(__name__)
 @app.route('/')
 def home():
     return render_template('home.html')
-
+ 
 @app.route('/tips')
 def tips():
     return render_template('tips.html')
@@ -22,8 +23,26 @@ def crimes():
     crimes_list = parsed.tolist()
     return render_template('crimes.html', crimes=crimes_list)
 
+#route to show the form
 @app.route('/report')
 def report():
     return render_template('report.html')
+
+#route to process the form
+@app.route('/submit_report', methods=['POST'])
+def submit_report():
+    location = request.form['location']
+    report_type = request.form['type']
+    description = request.form['description']
+
+    conn = sqlite3.connect('db.sqlite3')
+    c = conn.cursor()
+    c.execute("INSERT INTO reports (location, type, description) VALUES (?, ?, ?)",
+              (location, report_type, description))
+    conn.commit()
+    conn.close()
+
+    return redirect('/report')
+  
 if __name__ == "__main__":
     app.run(debug=True)
