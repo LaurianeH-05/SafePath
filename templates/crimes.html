@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Crime Locations</title>
+    <link rel="stylesheet" href="">
+</head>
+<body>
+    <h1>Recent Crimes</h1>
+    <table border="1">
+        <tr>
+            <th>Location</th>
+            <th>City</th>
+            <th>State</th>
+            <th>Zip Code</th>
+            <th>Latitude</th>
+            <th>Longitude</th>
+        </tr>
+        {% for crime in crimes %}
+        <tr>
+            <td>{{ crime.location }}</td>
+            <td>{{ crime.city }}</td>
+            <td>{{ crime.state }}</td>
+            <td>{{ crime.zip_code }}</td>
+            <td>{{ crime.latitude }}</td>
+            <td>{{ crime.longitude }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    <a href="{{ url_for('home') }}"><p>Return Home</p></a>
+    <a href="{{ url_for('tips') }}"><p>View Safety Tips</p></a>
+    <a href="{{ url_for('report')}}"><p>File a Crime Report</p></a>
+</body>
+</html>
