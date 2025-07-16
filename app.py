@@ -1,13 +1,27 @@
-from flask import Flask, render_template, request, redirect
+from flask import Flask, render_template
+import pandas as pd
+from sodapy import Socrata
 import sqlite3
-
+from parse_incident import parse_incident_data
 
 app = Flask(__name__)
 
-#route to safety tips page
+@app.route('/')
+def home():
+    return render_template('home.html')
+ 
 @app.route('/tips')
 def tips():
     return render_template('tips.html')
+
+@app.route('/crimes')
+def crimes():
+    client = Socrata("data.montgomerycountymd.gov", "5bwthyARYMArZxzjQH51yZQzQ")
+    results = client.get("icn6-v9z3", limit=10)
+    results_df = pd.DataFrame.from_records(results)
+    parsed = results_df.apply(lambda row: parse_incident_data(row.to_dict()), axis=1)
+    crimes_list = parsed.tolist()
+    return render_template('crimes.html', crimes=crimes_list)
 
 #route to show the form
 @app.route('/report')
@@ -29,3 +43,6 @@ def submit_report():
     conn.close()
 
     return redirect('/report')
+  
+if __name__ == "__main__":
+    app.run(debug=True)
