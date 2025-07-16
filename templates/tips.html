@@ -2,16 +2,16 @@
 <html>
 <head>
     <title>Safety Tips</title>
-    <link rel="stylesheet" href="">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
     <h1>Stay Safe: Tips fpr Safer Travel</h1>
     <ul>
-        <li>Avoid dark or isoloated areas when possible.</li>
-        <li>Share your live location with a friend</li>
+        <li>Avoid dark or isolated areas when possible.</li>
+        <li>Share your live location with a friend.</li>
         <li>Report any suspicious activity in the app.</li>
-        <li>Stick to well-lit main roads when walkign at night.</li>
-        <li>Trust your instincts. If somethign feels wrong, change your route.</li>
+        <li>Stick to well-lit main roads when walking at night.</li>
+        <li>Trust your instincts. If something feels wrong, change your route.</li>
     </ul>
     <a href="{{ url_for('home') }}"><p>Return Home</p></a>
     <a href="{{ url_for('crimes') }}"><p>View Recent Crimes</p></a>

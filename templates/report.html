@@ -2,6 +2,7 @@
 <html>
 <head>
     <title>Report an Issue</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
     <h1>Submit a Safety Report</h1>
@@ -22,5 +23,9 @@
 
         <button type="submit">Submit Report</button>
     </form>
+
+    <a href="{{ url_for('home') }}"><p>Return Home</p></a>
+    <a href="{{ url_for('crimes') }}"><p>View Recent Crimes</p></a>
+    <a href="{{ url_for('report')}}"><p>File a Crime Report</p></a>
 </body>
 </html>
