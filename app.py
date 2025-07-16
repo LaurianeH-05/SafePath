@@ -4,6 +4,11 @@ import sqlite3
 
 app = Flask(__name__)
 
+#route to home page
+@app.route('/')
+def home():
+    return render_template('home.html')
+
 #route to safety tips page
 @app.route('/tips')
 def tips():
@@ -29,3 +34,24 @@ def submit_report():
     conn.close()
 
     return redirect('/report')
+
+
+if __name__ == '__main__':
+    import sqlite3
+
+    conn = sqlite3.connect('db.sqlite3')
+    c = conn.cursor()
+    c.execute("""
+    CREATE TABLE IF NOT EXISTS reports (
+              id INTEGER PRIMARY KEY AUTOINCREMENT,
+              location TEXT NOT NULL,
+              type TEXT NOT NULL,
+              description TEXT,
+              timestamp TEXT NOT NULL) 
+              """)
+    conn.commit()
+    conn.close()
+
+    app.run(debug=True)
+
+
