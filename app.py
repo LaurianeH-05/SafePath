@@ -29,3 +29,6 @@ def submit_report():
     conn.close()
 
     return redirect('/report')
+
+if __name__ == '__main__':
+    app.run(debug=True)

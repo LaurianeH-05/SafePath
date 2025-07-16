@@ -3,3 +3,4 @@ flask
 sodapy
 googlemaps
 python-dotenv
+geopy
