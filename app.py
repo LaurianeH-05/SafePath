@@ -1,8 +1,9 @@
-from flask import Flask, render_template, request, redirect
+from flask import Flask, render_template, request, redirect, flash, url_for
 import pandas as pd
 from sodapy import Socrata
 import sqlite3
 from parse_incident import parse_incident_data
+from datetime import datetime
 from collections import defaultdict
 from crime import get_crime_coordinates
 import re
@@ -65,6 +66,7 @@ def get_route(start, end):
 
 #Flask Application Setup and Routes
 app = Flask(__name__)
+#add secret_key here!
 
 @app.route('/')
 def home():
@@ -98,12 +100,13 @@ def submit_report():
 
     conn = sqlite3.connect('db.sqlite3')
     c = conn.cursor()
-    c.execute("INSERT INTO reports (location, type, description) VALUES (?, ?, ?)",
-              (location, report_type, description))
+    c.execute("INSERT INTO reports (location, type, description, timestamp) VALUES (?, ?, ?, ?)",
+              (location, report_type, description, datetime.now()))
     conn.commit()
     conn.close()
 
-    return redirect('/report')
+    flash('Thank you for your report')
+    return redirect(url_for('report'))
 
 @app.route('/route', methods=['GET','POST'])
 def route_page():
@@ -140,8 +143,8 @@ if __name__ == '__main__':
               location TEXT NOT NULL,
               type TEXT NOT NULL,
               description TEXT,
-              timestamp TEXT NOT NULL) 
-              """)
+              timestamp DATETIME DEFAULT CURRENT_TIMESTAMP) 
+              """);
     conn.commit()
     conn.close()
 
