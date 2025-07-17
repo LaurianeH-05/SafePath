@@ -1,56 +1,82 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
     <title>Find Safe Route</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <h1>Find a Safe Route</h1>
+    <nav class="navbar">
+        <div class="logo">
+            <img src="{{ url_for('static', filename='images/SafePathLogo.png') }}" alt="SafePath Logo">
+            <span>SafePath</span>
+        </div>
+        <div class="navbar-links">
+            <a href="{{ url_for('home') }}">Home</a>
+            <a href="{{ url_for('report') }}">Report</a>
+            <a href="{{ url_for('crimes') }}">Crimes</a>
+            <a href="{{ url_for('tips') }}">Safety Tips</a>
+            <a href="{{ url_for('route_page') }}" class="active">Find Safe Route</a>
+        </div>
+    </nav>
 
-    <form method="POST">
-        <label for="start">Start Location:</label><br>
-        <input type="text" name="start" required><br><br>
+    <header>
+        <h1>Find a Safe Route</h1>
+        <p>Plan your journey with safety in mind. Enter your start and end locations below.</p>
+    </header>
+    <main style="display: flex; flex-direction: column; align-items: center; min-height: 60vh;">
+        <form method="POST" class="modern-form" style="margin-bottom: 32px;">
+            <label for="start">Start Location:</label>
+            <input type="text" name="start" required>
 
-        <label for="end">End Location:</label><br>
-        <input type="text" name="end" required><br><br>
+            <label for="end">End Location:</label>
+            <input type="text" name="end" required>
 
-        <button type="submit">Get Route</button>
-    </form>
+            <button type="submit" class="nav-btn" style="margin-top: 10px;">Get Route</button>
+        </form>
 
-   {% if steps %}
-    <h2>Route from {{ start }} to {{ end }}</h2>
-    <ul>
-        {% for step in steps %}
-            <li>{{ step.instruction }} — {{ step.distance }}, {{ step.duration }}</li>
-        {% endfor %}
-    </ul>
+        {% if steps %}
+            <section class="route-card">
+                <h2>Route from {{ start }} to {{ end }}</h2>
+                <ul style="padding-left: 18px;">
+                    {% for step in steps %}
+                        <li>{{ step.instruction }} — {{ step.distance }}, {{ step.duration }}</li>
+                    {% endfor %}
+                </ul>
+            </section>
 
-    {% if nearby_crimes %}
-    
-        <h3> Nearby Crimes Detected:</h3>
-        {% for street, crimes in nearby_crimes.items() %}
-            <div style="margin-bottom: 1.5em;">
+            {% if nearby_crimes %}
+                <section class="crime-alert-card">
+                    <h3>Nearby Crimes Detected:</h3>
+                    {% for street, crimes in nearby_crimes.items() %}
+                        <div class="crime-street-block">
+                            <strong>{{ street }}</strong>
+                            <ul style="padding-left: 18px;">
+                                {% for crime in crimes %}
+                                    <li style="margin-bottom: 0.5em;">
+                                        {{ crime.block }}<br>
+                                        Type: {{ crime.incident_type }}<br>
+                                        Date: {{ crime.date }}
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    {% endfor %}
+                </section>
+            {% else %}
+                <section class="route-card"><p>No nearby crimes detected</p></section>
+            {% endif %}
+        {% endif %}
 
-            <strong>{{ street }}</strong>
-            <ul>
-                {% for crime in crimes %}
-                    <li style="margin-bottom: 0.5em;">
-                        {{ crime.block }}<br>
-                        Type: {{ crime.incident_type }}<br>
-                        Date: {{ crime.date }}
-                    </li>
-                {% endfor %}
-            </ul>
-            </div>
-        {% endfor %}
-
-    {% else %}
-        <p>No nearby crimes detected</p>
-    {% endif %}
-{% endif %}
-
-    <a href="{{ url_for('home') }}"><p>Return Home</p></a>
-    <a href="{{ url_for('crimes') }}"><p>View Recent Crimes</p></a>
-    <a href="{{ url_for('report')}}"><p>File a Crime Report</p></a>
+        <div style="display: flex; flex-wrap: wrap; gap: 16px; justify-content: center; margin-top: 32px;">
+            <a href="{{ url_for('home') }}" class="nav-btn">Return Home</a>
+            <a href="{{ url_for('crimes') }}" class="nav-btn">View Recent Crimes</a>
+            <a href="{{ url_for('report')}}" class="nav-btn">File a Crime Report</a>
+        </div>
+    </main>
+    <footer>
+        &copy; {{ 2024 }} SafePath. All rights reserved.
+    </footer>
 </body>
 </html>

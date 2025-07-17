@@ -1,34 +1,66 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
     <title>Crime Locations</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <h1>Recent Crimes</h1>
-    <table border="1">
-        <tr>
-            <th>Location</th>
-            <th>City</th>
-            <th>State</th>
-            <th>Zip Code</th>
-            <th>Latitude</th>
-            <th>Longitude</th>
-        </tr>
-        {% for crime in crimes %}
-        <tr>
-            <td>{{ crime.location }}</td>
-            <td>{{ crime.city }}</td>
-            <td>{{ crime.state }}</td>
-            <td>{{ crime.zip_code }}</td>
-            <td>{{ crime.latitude }}</td>
-            <td>{{ crime.longitude }}</td>
-        </tr>
-        {% endfor %}
-    </table>
-    <a href="{{ url_for('home') }}"><p>Return Home</p></a>
-    <a href="{{ url_for('tips') }}"><p>View Safety Tips</p></a>
-    <a href="{{ url_for('report')}}"><p>File a Crime Report</p></a>
-    <a href="{{ url_for('route_page') }}">Find Safe Route</a>
+    <nav class="navbar">
+        <div class="logo">
+            <img src="{{ url_for('static', filename='images/SafePathLogo.png') }}" alt="SafePath Logo">
+            <span>SafePath</span>
+        </div>
+        <div class="navbar-links">
+            <a href="{{ url_for('home') }}">Home</a>
+            <a href="{{ url_for('report') }}">Report</a>
+            <a href="{{ url_for('crimes') }}" class="active">Crimes</a>
+            <a href="{{ url_for('tips') }}">Safety Tips</a>
+            <a href="{{ url_for('route_page') }}">Find Safe Route</a>
+        </div>
+    </nav>
+
+    <header>
+        <h1>Recent Crimes</h1>
+        <p>Stay informed about recent crime locations in your area.</p>
+    </header>
+    <main style="max-width: 1100px; margin: 0 auto; padding: 24px 8px;">
+        <div style="overflow-x:auto;">
+            <table class="modern-table">
+                <thead>
+                    <tr>
+                        <th>Location</th>
+                        <th>City</th>
+                        <th>State</th>
+                        <th>Zip Code</th>
+                        <th>Latitude</th>
+                        <th>Longitude</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for crime in crimes %}
+                    <tr>
+                        <td>{{ crime.location }}</td>
+                        <td>{{ crime.city }}</td>
+                        <td>{{ crime.state }}</td>
+                        <td>{{ crime.zip_code }}</td>
+                        <td>{{ crime.latitude }}</td>
+                        <td>{{ crime.longitude }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div style="display: flex; flex-wrap: wrap; gap: 16px; justify-content: center; margin-top: 32px;">
+            <a href="{{ url_for('home') }}" class="nav-btn">Return Home</a>
+            <a href="{{ url_for('tips') }}" class="nav-btn">View Safety Tips</a>
+            <a href="{{ url_for('report')}}" class="nav-btn">File a Crime Report</a>
+            <a href="{{ url_for('route_page') }}" class="nav-btn">Find Safe Route</a>
+        </div>
+    </main>
+    <footer>
+        &copy; {{ 2024 }} SafePath. All rights reserved.
+    </footer>
 </body>
 </html>

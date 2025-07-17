@@ -4,3 +4,6 @@ __pycache__/
 *.pyc
 
 .DS_Store
+
+# Added to set Google Maps API key as an environment variable
+GOOGLE_MAPS_API_KEY

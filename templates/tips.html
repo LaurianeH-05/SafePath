@@ -1,22 +1,49 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
     <title>Safety Tips</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <h1>Stay Safe: Tips fpr Safer Travel</h1>
-    <ul>
-        <li>Avoid dark or isolated areas when possible.</li>
-        <li>Share your live location with a friend.</li>
-        <li>Report any suspicious activity in the app.</li>
-        <li>Stick to well-lit main roads when walking at night.</li>
-        <li>Trust your instincts. If something feels wrong, change your route.</li>
-    </ul>
-    <a href="{{ url_for('home') }}"><p>Return Home</p></a>
-    <a href="{{ url_for('crimes') }}"><p>View Recent Crimes</p></a>
-    <a href="{{ url_for('report')}}"><p>File a Crime Report</p></a>
-    <a href="{{ url_for('route_page') }}">Find Safe Route</a>
+    <nav class="navbar">
+        <div class="logo">
+            <img src="{{ url_for('static', filename='images/SafePathLogo.png') }}" alt="SafePath Logo">
+            <span>SafePath</span>
+        </div>
+        <div class="navbar-links">
+            <a href="{{ url_for('home') }}">Home</a>
+            <a href="{{ url_for('report') }}">Report</a>
+            <a href="{{ url_for('crimes') }}">Crimes</a>
+            <a href="{{ url_for('tips') }}" class="active">Safety Tips</a>
+            <a href="{{ url_for('route_page') }}">Find Safe Route</a>
+        </div>
+    </nav>
 
-</bod>
+    <header>
+        <h1>Stay Safe: Tips for Safer Travel</h1>
+        <p>Follow these tips to help keep yourself and others safe while traveling.</p>
+    </header>
+    <main style="display: flex; flex-direction: column; align-items: center; min-height: 60vh;">
+        <section class="tips-card">
+            <ul class="tips-list">
+                <li><span class="tip-icon">✔</span> Avoid dark or isolated areas when possible.</li>
+                <li><span class="tip-icon">✔</span> Share your live location with a friend.</li>
+                <li><span class="tip-icon">✔</span> Report any suspicious activity in the app.</li>
+                <li><span class="tip-icon">✔</span> Stick to well-lit main roads when walking at night.</li>
+                <li><span class="tip-icon">✔</span> Trust your instincts. If something feels wrong, change your route.</li>
+            </ul>
+        </section>
+        <div style="display: flex; flex-wrap: wrap; gap: 16px; justify-content: center; margin-top: 32px;">
+            <a href="{{ url_for('home') }}" class="nav-btn">Return Home</a>
+            <a href="{{ url_for('crimes') }}" class="nav-btn">View Recent Crimes</a>
+            <a href="{{ url_for('report')}}" class="nav-btn">File a Crime Report</a>
+            <a href="{{ url_for('route_page') }}" class="nav-btn">Find Safe Route</a>
+        </div>
+    </main>
+    <footer>
+        &copy; {{ 2024 }} SafePath. All rights reserved.
+    </footer>
+</body>
 </html>
