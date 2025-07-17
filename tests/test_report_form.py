@@ -1,5 +1,6 @@
 import unittest
 from app import app
+app.secret_key = 'test_secret_key'
 
 class ReportFormTestCase(unittest.TestCase):
     def setUp(self):
