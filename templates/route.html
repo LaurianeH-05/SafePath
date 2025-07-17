@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Find Safe Route</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>Find a Safe Route</h1>
+
+    <form method="POST">
+        <label for="start">Start Location:</label><br>
+        <input type="text" name="start" required><br><br>
+
+        <label for="end">End Location:</label><br>
+        <input type="text" name="end" required><br><br>
+
+        <button type="submit">Get Route</button>
+    </form>
+
+   {% if steps %}
+    <h2>Route from {{ start }} to {{ end }}</h2>
+    <ul>
+        {% for step in steps %}
+            <li>{{ step.instruction }} — {{ step.distance }}, {{ step.duration }}</li>
+        {% endfor %}
+    </ul>
+
+    {% if nearby_crimes %}
+    
+        <h3> Nearby Crimes Detected:</h3>
+        {% for street, crimes in nearby_crimes.items() %}
+            <div style="margin-bottom: 1.5em;">
+
+            <strong>{{ street }}</strong>
+            <ul>
+                {% for crime in crimes %}
+                    <li style="margin-bottom: 0.5em;">
+                        {{ crime.block }}<br>
+                        Type: {{ crime.incident_type }}<br>
+                        Date: {{ crime.date }}
+                    </li>
+                {% endfor %}
+            </ul>
+            </div>
+        {% endfor %}
+
+    {% else %}
+        <p>No nearby crimes detected</p>
+    {% endif %}
+{% endif %}
+
+    <a href="{{ url_for('home') }}"><p>Return Home</p></a>
+    <a href="{{ url_for('crimes') }}"><p>View Recent Crimes</p></a>
+    <a href="{{ url_for('report')}}"><p>File a Crime Report</p></a>
+</body>
+</html>
