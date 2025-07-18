@@ -70,7 +70,7 @@ Once the installation is complete, you can run the Flask application.
     ```
 3.  The application will start a local development server. You can access it by opening your web browser and navigating to:
     ```
-    [http://127.0.0.1:5000](http://127.0.0.1:5000)
+    http://127.0.0.1:5000
     ```
 
 ## Testing
