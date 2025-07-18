@@ -1,10 +1,5 @@
 import unittest
 from unittest.mock import patch, MagicMock
-
-import sys
-import os
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
-
 from crime import get_crime_coordinates, client
 from sodapy import Socrata
 
