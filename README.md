@@ -1,4 +1,4 @@
-SafePath: Drive Smarter, Drive Safer
+# SafePath: Drive Smarter, Drive Safer
 SafePath is a Flask web application designed to help users find safer driving routes by integrating real-time crime data from Montgomery County, MD. It provides turn-by-turn directions and highlights recent crime incidents along the suggested path, allowing users to make more informed decisions about their travel.
 
 About The Project
