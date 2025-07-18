@@ -66,8 +66,7 @@ def get_route(start, end):
 
 #Flask Application Setup and Routes
 app = Flask(__name__)
-#add secret_key here!
-
+app.secret_key = 'your_secret_key_here'  
 @app.route('/')
 def home():
     return render_template('home.html')
