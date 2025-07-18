@@ -84,7 +84,13 @@ def crimes():
     results_df = pd.DataFrame.from_records(results)
     parsed = results_df.apply(lambda row: parse_incident_data(row.to_dict()), axis=1)
     crimes_list = parsed.tolist()
-    return render_template('crimes.html', crimes=crimes_list)
+    # Fetch user-reported crimes from the database
+    conn = sqlite3.connect('db.sqlite3')
+    c = conn.cursor()
+    c.execute("SELECT location, type, description, timestamp FROM reports ORDER BY timestamp DESC")
+    user_reports = c.fetchall()
+    conn.close()
+    return render_template('crimes.html', crimes=crimes_list, user_reports=user_reports)
 
 #route to show the form
 @app.route('/report')

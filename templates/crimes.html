@@ -52,6 +52,35 @@
                 </tbody>
             </table>
         </div>
+        <section style="max-width: 900px; margin: 40px auto 0 auto; padding: 24px; background: #f9f9f9; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.04);">
+            <h2 style="text-align:center; margin-bottom: 20px;">User-Reported Safety Issues</h2>
+            {% if user_reports and user_reports|length > 0 %}
+            <div style="overflow-x:auto;">
+                <table style="width:100%; border-collapse: collapse;">
+                    <thead>
+                        <tr style="background:#e0e0e0;">
+                            <th style="padding:8px; border:1px solid #ccc;">Location/Area</th>
+                            <th style="padding:8px; border:1px solid #ccc;">Type</th>
+                            <th style="padding:8px; border:1px solid #ccc;">Description</th>
+                            <th style="padding:8px; border:1px solid #ccc;">Reported At</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for report in user_reports %}
+                        <tr>
+                            <td style="padding:8px; border:1px solid #ccc;">{{ report[0] }}</td>
+                            <td style="padding:8px; border:1px solid #ccc;">{{ report[1] }}</td>
+                            <td style="padding:8px; border:1px solid #ccc;">{{ report[2] }}</td>
+                            <td style="padding:8px; border:1px solid #ccc;">{{ report[3] }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            {% else %}
+            <p style="text-align:center; color:#888;">No user-reported safety issues yet. Be the first to report one!</p>
+            {% endif %}
+        </section>
         <div style="display: flex; flex-wrap: wrap; gap: 16px; justify-content: center; margin-top: 32px;">
             <a href="{{ url_for('home') }}" class="nav-btn">Return Home</a>
             <a href="{{ url_for('tips') }}" class="nav-btn">View Safety Tips</a>
